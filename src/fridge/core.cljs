@@ -1,4 +1,4 @@
-(ns om-tut.core
+(ns fridge.core
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]))
 
