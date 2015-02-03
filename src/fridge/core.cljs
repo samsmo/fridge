@@ -54,7 +54,8 @@
   (reify
     om/IInitState
     (init-state [_]
-      {:delete (chan)})
+      {:delete (chan)
+       :text ""})
     om/IWillMount
     (will-mount [_]
       (let [delete (om/get-state owner :delete)]
@@ -69,9 +70,11 @@
           (dom/h2 nil "Contact List")
           (apply dom/ul nil
             (om/build-all contact-view (:contacts app)
-                          {:init-state {:delete delete}}))))))
+                          {:init-state {:delete delete}}))
+          (dom/div nil
+                  (dom/input #js {:type "text" :ref "new-contact" :value (:text state)})
+                  (dom/button #js {:onClick #(add-contact app owner)} "Add Contact" ))))))
 
 (om/root contacts-view app-state
          {:target (. js/document (getElementById "contacts"))})
 
-(parse-contact "frrt")
